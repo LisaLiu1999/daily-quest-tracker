@@ -1,0 +1,740 @@
+/* public/styles.css - QuestLog 全新設計 */
+
+/* --- 基礎設定 --- */
+:root {
+    --primary-color: #4A90E2; /* 藍色 */
+    --primary-color-light: #7ABFFC;
+    --primary-color-dark: #357ABD;
+    --secondary-color: #50E3C2; /* 綠松石色 */
+    --accent-color: #F8E71C; /* 黃色 */
+    --background-color: #F4F7F6; /* 淺灰色背景 */
+    --surface-color: #FFFFFF; /* 卡片/面板背景 */
+    --text-color-dark: #333333; /* 主要深色文字 */
+    --text-color-light: #666666; /* 次要淺色文字 */
+    --border-color: #E0E0E0;
+    --error-color: #FF4136; /* 紅色錯誤 */
+    --success-color: #2ECC40; /* 綠色成功 */
+
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-color-dark);
+    line-height: 1.6;
+    background-color: var(--background-color);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+button.primary {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+}
+
+button.primary:hover {
+    background-color: var(--primary-color-dark);
+}
+
+button.secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-color-dark);
+}
+
+button.secondary:hover {
+    background-color: var(--secondary-color); /* 保持一致或輕微變色 */
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--surface-color);
+    box-shadow: var(--shadow-sm);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* 增加連結間距 */
+}
+
+.navbar .nav-links a {
+    color: var(--text-color-dark);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-links a:hover,
+.navbar .nav-links a.active {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.navbar .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+#logout-button {
+    background: none;
+    border: none;
+    color: var(--error-color);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0; /* 移除預設 padding */
+    transition: color 0.2s ease;
+}
+
+#logout-button:hover {
+    color: var(--error-color);
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+/* --- Main Content Layout --- */
+.main-content {
+    padding: 40px 20px;
+    flex-grow: 1; /* 讓內容區塊佔滿剩餘空間 */
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--primary-color-dark);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* --- Form Styles (用於 Login 和 Profile) --- */
+.form-container {
+    background-color: var(--surface-color);
+    padding: 40px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    max-width: 450px;
+    margin: 50px auto 30px auto; /* 居中對齊 */
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.form-container h2 {
+    margin-bottom: 25px;
+    color: var(--text-color-dark);
+    font-size: 1.8rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color-dark);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.form-container button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    border-radius: var(--border-radius-sm);
+}
+
+.form-container .social-login-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    margin-bottom: 15px; /* 與分隔線的間距 */
+    background-color: #DB4437; /* Google 紅色 */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s ease;
+}
+
+.form-container .social-login-btn:hover {
+    background-color: #C63D31;
+}
+
+.form-container .social-login-btn img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.form-container .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: var(--text-color-light);
+}
+
+.form-container .separator::before,
+.form-container .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-container .separator:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.form-container .separator:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.form-container .alt-text {
+    margin-top: 15px;
+    color: var(--text-color-light);
+    font-size: 0.95rem;
+}
+
+.form-container .alt-text a {
+    font-weight: 600;
+}
+
+#error-message {
+    color: var(--error-color);
+    margin-top: 15px;
+    font-weight: 600;
+    display: none; /* 預設隱藏 */
+}
+
+/* --- Quest Card Styles --- */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* 響應式 */
+    gap: 20px; /* 間距 */
+}
+
+.header-section h2 {
+    margin-bottom: 0;
+    flex-grow: 1; /* 佔滿空間 */
+    text-align: left;
+}
+
+.stats-bar {
+    display: flex;
+    gap: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color-light);
+    background-color: var(--surface-color);
+    padding: 12px 25px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.stats-bar span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px; /* 增加卡片間距 */
+}
+
+.quest-card {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px; /* 最小高度 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color);
+}
+
+.quest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.quest-card.completed {
+    background-color: #E6F8F3; /* 完成後輕微的綠色背景 */
+    opacity: 0.8;
+    border-color: var(--secondary-color);
+}
+
+.quest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.quest-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--primary-color-dark);
+    margin-bottom: 5px;
+}
+
+.quest-category {
+    background-color: var(--primary-color-light);
+    color: var(--surface-color);
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+}
+
+.quest-xp {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    background-color: var(--primary-color-dark);
+    padding: 8px 15px;
+    border-radius: var(--border-radius-lg);
+    margin-left: 15px;
+}
+
+.quest-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.complete-btn {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    padding: 10px 18px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.complete-btn:hover:not([disabled]) {
+    background-color: var(--primary-color-dark);
+}
+
+.complete-btn[disabled] {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.completed-badge {
+    background-color: var(--secondary-color);
+    color: var(--text-color-dark);
+    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.completed-badge::before {
+    content: '✓'; /* Checkmark */
+    font-size: 1.2em;
+}
+
+
+/* --- Profile Styles --- */
+.profile-card {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 40px;
+    max-width: 800px;
+    margin: 30px auto;
+    border: 1px solid var(--border-color);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-username {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--primary-color-dark);
+    margin-bottom: 5px;
+}
+
+.profile-level {
+    font-size: 1.2rem;
+    color: var(--text-color-light);
+    font-weight: 600;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-item {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.stat-label {
+    font-weight: 600;
+    color: var(--text-color-light);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.profile-badges h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--primary-color-dark);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-badges .badges-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.profile-badges .badge-item {
+    background-color: var(--secondary-color);
+    color: var(--text-color-dark);
+    padding: 8px 15px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* --- Leaderboard Styles --- */
+.leaderboard-list {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px 0;
+    border: 1px solid var(--border-color);
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-item:hover {
+    background-color: var(--background-color);
+}
+
+.rank {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    width: 60px;
+    text-align: center;
+    color: var(--text-color-light);
+}
+
+.rank.first { color: gold; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+.rank.second { color: silver; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+.rank.third { color: #cd7f32; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); } /* Bronze */
+
+.user-info {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.username {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--primary-color-dark);
+    margin-bottom: 3px;
+}
+
+.user-stats {
+    font-size: 0.95rem;
+    color: var(--text-color-light);
+}
+.user-stats span:not(:last-child) {
+    margin-right: 15px;
+}
+
+
+/* --- Badges Styles --- */
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.badge-card {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badge-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.badge-name {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--primary-color-dark);
+    margin-bottom: 10px;
+}
+
+.badge-description {
+    color: var(--text-color-light);
+    font-size: 1rem;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.badge-requirement {
+    background-color: var(--background-color);
+    color: var(--text-color-dark);
+    font-size: 0.85rem;
+    padding: 8px 15px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    display: inline-block; /* 讓背景只佔文字寬度 */
+    margin-top: auto; /* 推到底部 */
+}
+
+
+/* --- General Error Message --- */
+.error {
+    background-color: #ffe0e0; /* 淺紅色背景 */
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+    padding: 15px;
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    margin: 20px auto;
+    font-weight: 600;
+    max-width: 600px;
+}
+
+/* --- Loading Spinner --- */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px; /* 確保加載圖示有足夠空間 */
+    width: 100%;
+}
+
+.spinner {
+    border: 6px solid rgba(0, 0, 0, 0.1);
+    border-top: 6px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .navbar .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .main-content {
+        padding: 30px 15px;
+    }
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    .form-container {
+        padding: 30px;
+        margin: 30px auto;
+    }
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+    .quests-grid, .profile-stats, .badges-grid {
+        grid-template-columns: 1fr;
+    }
+    .header-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .stats-bar {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+    }
+    .quest-card {
+        min-height: unset; /* 手機上移除最小高度 */
+    }
+    .quest-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .quest-xp {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar .logo {
+        font-size: 1.5rem;
+    }
+    .leaderboard-item {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 15px;
+    }
+    .rank {
+        margin-bottom: 10px;
+    }
+    .user-info {
+        margin-left: 0;
+        width: 100%;
+    }
+}

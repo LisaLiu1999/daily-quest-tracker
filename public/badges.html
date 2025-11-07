@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badges - QuestLog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">QuestLog</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Quests</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="badges.html" class="active">Badges</a></li>
+                <li><a href="#" id="logout-button" style="color: var(--error-color);">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container main-content">
+        <h2>Available Badges</h2>
+        <div id="badgesContainer" class="badges-grid">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="badges.js" type="module"></script>
+</body>
+</html>

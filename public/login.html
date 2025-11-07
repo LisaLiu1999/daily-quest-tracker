@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - QuestLog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="logo">QuestLog</h1>
+        <a href="/auth/google" class="social-login-btn">
+    
+            Sign in with Google
+        </a>
+        <!-- <img src="https://www.svgrepo.com/show/303109/google-icon-logo.svg" alt="Google Logo"/>  -->
+
+        <div class="separator">or</div>
+        
+        <h2>Login to Your Account</h2>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="questmaster@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" value="password123" required>
+            </div>
+            <button type="submit" class="primary">Login</button>
+            <p id="error-message" class="error"></p> 
+            <p class="alt-text">Don't have an account? <a href="register.html">Register here</a></p>
+        </form>
+    </div>
+
+    <script src="login.js" type="module"></script>
+</body>
+</html>
