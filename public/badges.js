@@ -1,41 +1,32 @@
-// badges.js
 import { fetchData } from './api.js';
 
-// --- 新增登出邏輯 ---
 document.getElementById('logout-button').addEventListener('click', async (e) => {
     e.preventDefault();
-    try {
-        await fetch('/logout', { method: 'POST' }); 
-    } catch (error) {
-        console.error('Logout failed on server:', error);
-    }
+    try { await fetch('/logout', { method: 'POST' }); } catch (e) {}
     localStorage.removeItem('accessToken');
     window.location.href = 'login.html';
 });
-// --------------------
 
-// Fetch and display badges
+const badgeIconSvg = '<svg class="badge-icon-svg" viewBox="0 0 24 24"><path d="M12 2l-3 6-6 1 4 4-1 6 6-3 6 3-1-6 4-4-6-1z"/></svg>'; 
+
 async function loadBadges() {
     const container = document.getElementById('badgesContainer');
     try {
         const result = await fetchData('/badges'); 
-        const badges = result.data; 
-        
-        if (!badges || badges.length === 0) {
-            container.innerHTML = `<div class="error" style="background: var(--primary-color-dark);">No badges found. The database might be empty.</div>`;
-            return;
-        }
-        container.innerHTML = badges.map(badge => `
+        container.innerHTML = result.data.map(badge => `
             <div class="badge-card">
-                <h3 class="badge-name">${badge.name}</h3>
-                <p class="badge-description">${badge.description}</p>
-                <div class="badge-requirement">
-                    ${badge.xpRequired > 0 ? `Requires: ${badge.xpRequired.toLocaleString()} XP` : 'Starter Badge'}
-                </div>
+                ${badgeIconSvg}
+                <h3 style="margin-bottom:8px; font-size:1.1rem;">${badge.name}</h3>
+                <p style="font-size:0.9rem; color:var(--text-light); margin-bottom:12px;">
+                    ${badge.description}
+                </p>
+                <span class="xp-badge" style="font-size:0.8rem; padding:4px 10px;">
+                    ${badge.xpRequired > 0 ? `Req: ${badge.xpRequired} XP` : 'Starter'}
+                </span>
             </div>
         `).join('');
     } catch (error) {
-        container.innerHTML = `<div class="error">Failed to load badges: ${error.message}</div>`;
+        container.innerHTML = 'Failed to load.';
     }
 }
 

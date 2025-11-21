@@ -1,46 +1,39 @@
-// leaderboard.js
 import { fetchData } from './api.js';
 
-// --- 新增登出邏輯 ---
 document.getElementById('logout-button').addEventListener('click', async (e) => {
     e.preventDefault();
-    try {
-        await fetch('/logout', { method: 'POST' }); 
-    } catch (error) {
-        console.error('Logout failed on server:', error);
-    }
+    try { await fetch('/logout', { method: 'POST' }); } catch (e) {}
     localStorage.removeItem('accessToken');
     window.location.href = 'login.html';
 });
-// --------------------
 
-// Fetch and display leaderboard
 async function loadLeaderboard() {
     const container = document.getElementById('leaderboardContainer');
     try {
         const result = await fetchData('/leaderboard'); 
-        const leaderboard = result.data; 
-        container.innerHTML = leaderboard.map(user => {
-            let rankClass = '';
-            if (user.rank === 1) { rankClass = 'first'; }
-            else if (user.rank === 2) { rankClass = 'second'; }
-            else if (user.rank === 3) { rankClass = 'third'; }
-            
+        const listHtml = result.data.map((user, index) => {
+            const rank = index + 1;
+            let rankClass = 'rank-num';
+            if (rank === 1) rankClass += ' rank-1';
+            if (rank === 2) rankClass += ' rank-2';
+            if (rank === 3) rankClass += ' rank-3';
+
             return `
-                <div class="leaderboard-item">
-                    <div class="rank ${rankClass}">#${user.rank}</div>
-                    <div class="user-info">
-                        <div class="username">${user.username}</div>
-                        <div class="user-stats">
-                            <span>Level ${user.level}</span>
-                            <span>${user.totalXP.toLocaleString()} XP</span>
-                        </div>
+                <div class="leaderboard-row">
+                    <div class="${rankClass}">${rank}</div>
+                    <div>
+                        <div style="font-weight:700; font-size:1.1rem;">${user.username}</div>
+                        <div style="font-size:0.85rem; color:var(--text-light);">Level ${user.level}</div>
+                    </div>
+                    <div style="text-align:right; font-weight:800; color:var(--primary-dark);">
+                        ${user.totalXP.toLocaleString()} XP
                     </div>
                 </div>
             `;
         }).join('');
+        container.innerHTML = `<div class="leaderboard-list">${listHtml}</div>`;
     } catch (error) {
-        container.innerHTML = `<div class="error">Failed to load leaderboard: ${error.message}</div>`;
+        container.innerHTML = 'Failed to load.';
     }
 }
 
