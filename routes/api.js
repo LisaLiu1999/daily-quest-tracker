@@ -71,7 +71,18 @@ router.post('/register', authLimiter, [
     } catch (err) { res.status(500).json({ success: false, message: 'Server error' }); }
 });
 
-router.post('/login', authLimiter, async (req, res) => {
+// [Fix] Part C: 修復 NoSQL Injection 漏洞
+// 加入 express-validator 驗證 email 格式，防止傳入 MongoDB 查詢運算子物件
+router.post('/login', authLimiter, [
+    body('email', 'Valid email required').isEmail().normalizeEmail(),
+    body('password', 'Password is required').exists()
+], async (req, res) => {
+    // [Fix] 檢查驗證錯誤
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, message: 'Invalid input format', errors: errors.array() });
+    }
+
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
